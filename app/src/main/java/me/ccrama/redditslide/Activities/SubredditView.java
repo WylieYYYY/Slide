@@ -69,6 +69,7 @@ import java.util.Locale;
 
 import me.ccrama.redditslide.Adapters.SettingsSubAdapter;
 import me.ccrama.redditslide.Authentication;
+import me.ccrama.redditslide.CaseInsensitiveArrayList;
 import me.ccrama.redditslide.Constants;
 import me.ccrama.redditslide.Fragments.BlankFragment;
 import me.ccrama.redditslide.Fragments.CommentPage;
@@ -220,6 +221,13 @@ public class SubredditView extends BaseActivity {
                 ((SubmissionsView) (adapter.getCurrentFragment())).resetScroll();
             }
         });
+        if (subreddit.equals("myrandom")) {
+            CaseInsensitiveArrayList subreddits = UserSubscriptions.getSubscriptions(this);
+            if (!subreddits.isEmpty()) {
+                int randomIndex = (int) (Math.round(Math.random() * (subreddits.size() - 1)));
+                subreddit = subreddits.get(randomIndex);
+            }
+        }
         if (!subreddit.equals("random")
                 && !subreddit.equals("all")
                 && !subreddit.equals("frontpage")
